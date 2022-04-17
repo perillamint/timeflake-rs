@@ -33,25 +33,21 @@ impl Timeflake {
         Ok(Self::from_values(
             SystemTime::now().duration_since(UNIX_EPOCH)?,
             None,
-        ))
+        ).unwrap())
     }
 
-    pub fn from_values(timestamp: Duration, random_val: Option<u128>) -> Timeflake {
+    pub fn from_values(timestamp: Duration, random_val: Option<u128>) -> Result<Timeflake, rand::Error> {
         let random = match random_val {
             Some(x) => x,
             None => {
                 let mut val = [0u8; 16];
-                let mut rand = [0u8; 10];
-                thread_rng().try_fill(&mut rand);
-                for i in 0..10 {
-                    val[i] = rand[i];
-                }
+                thread_rng().try_fill(&mut val[..10])?;
 
                 u128::from_le_bytes(val)
             }
         };
 
-        Self { timestamp, random }
+        Ok(Self { timestamp, random })
     }
 
     pub fn get_uuid(&self) -> Uuid {
@@ -67,17 +63,28 @@ impl Timeflake {
 
 impl fmt::Display for Timeflake {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self.get_uuid().to_string())
+        write!(f, "{}", self.get_uuid())
     }
 }
 
 #[test]
 fn parse_test() {
-    let flake = Timeflake::from_values(Duration::from_millis(424242), Some(242424));
+    let flake = Timeflake::from_values(Duration::from_millis(424242), Some(242424)).unwrap();
     let flake2 = Timeflake::parse(&flake.to_string()).unwrap();
 
     assert_eq!(flake.timestamp.as_millis(), 424242);
     assert_eq!(flake.random, 242424);
     assert_eq!(flake.timestamp, flake2.timestamp);
     assert_eq!(flake.random, flake2.random);
+}
+
+#[test]
+fn exa() {
+    let time = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
+    println!("{}", Timeflake::random().unwrap());
+    println!("{}", Timeflake::from_values(time, Some(0)).unwrap());
+    println!("{}", Timeflake::from_values(time, None).unwrap());
+    println!("{}", Timeflake::from_values(time, None).unwrap());
+    println!("{}", Timeflake::from_values(time, None).unwrap());
+    println!("{}", Timeflake::from_values(time, None).unwrap());
 }
