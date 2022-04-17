@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
-name: lint
+name: CI
 on:
   push:
     branches:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   lint:
-    name: Build
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -33,3 +33,17 @@ jobs:
         uses: fsfe/reuse-action@v1
         with:
           args: --include-submodules lint
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+          submodules: true
+      - uses: actions-rs/toolchain@v1
+        with:
+            toolchain: stable
+            components: rustfmt
+            override: true
+      - run: cargo test
