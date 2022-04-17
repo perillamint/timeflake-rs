@@ -4,6 +4,8 @@ version = "0.2.0"
 edition = "2021"
 license = "MIT"
 description = "Timeflake is a 128-bit, roughly-ordered, URL-safe UUID. Inspired by Twitter's Snowflake, Instagram's ID and Firebase's PushID."
+repository = "https://github.com/perillamint/timeflake-rs"
+keywords = ["timeflake"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
