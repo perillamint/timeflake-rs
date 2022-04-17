@@ -20,7 +20,7 @@ use Timeflake;
 fn main() {
     let time = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
     println!("{}", Timeflake::random().unwrap());
-    println!("{}", Timeflake::from_values(time, Some(0)));
-    println!("{}", Timeflake::from_values(time, None));
+    println!("{}", Timeflake::from_values(time, Some(0)).unwrap());
+    println!("{}", Timeflake::from_values(time, None).unwrap());
 }
 ```
