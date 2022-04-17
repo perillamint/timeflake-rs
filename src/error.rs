@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2022 perillamint
+//
+// SPDX-License-Identifier: MIT
+
 use custom_error::custom_error;
 
 custom_error! { pub TimeflakeError
