@@ -30,13 +30,13 @@ impl Timeflake {
     }
 
     pub fn random() -> Result<Timeflake, SystemTimeError> {
-        Ok(Self::from_values(
-            SystemTime::now().duration_since(UNIX_EPOCH)?,
-            None,
-        ).unwrap())
+        Ok(Self::from_values(SystemTime::now().duration_since(UNIX_EPOCH)?, None).unwrap())
     }
 
-    pub fn from_values(timestamp: Duration, random_val: Option<u128>) -> Result<Timeflake, rand::Error> {
+    pub fn from_values(
+        timestamp: Duration,
+        random_val: Option<u128>,
+    ) -> Result<Timeflake, rand::Error> {
         let random = match random_val {
             Some(x) => x,
             None => {
