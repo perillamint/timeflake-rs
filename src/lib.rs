@@ -67,14 +67,14 @@ impl Timeflake {
         Ok(Self { timestamp, random })
     }
 
-    pub fn get_uuid(&self) -> Uuid {
+    pub fn as_u128(&self) -> u128 {
+        let timeflake = self.random & 0x000000000000FFFFFFFFFFFFFFFFFFFF;
         let timestamp_part = self.timestamp.as_millis() as u64;
+        timeflake | (timestamp_part as u128) << 80
+    }
 
-        let mut timeflake = self.random & 0x000000000000FFFFFFFFFFFFFFFFFFFF;
-
-        timeflake |= (timestamp_part as u128) << 80;
-
-        Uuid::from_u128(timeflake)
+    pub fn get_uuid(&self) -> Uuid {
+        Uuid::from_u128(self.as_u128())
     }
 }
 
@@ -100,8 +100,6 @@ fn example() {
     let time = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
     println!("{}", Timeflake::random().unwrap());
     println!("{}", Timeflake::from_values(time, Some(0)).unwrap());
-    println!("{}", Timeflake::from_values(time, None).unwrap());
-    println!("{}", Timeflake::from_values(time, None).unwrap());
     println!("{}", Timeflake::from_values(time, None).unwrap());
     println!("{}", Timeflake::from_values(time, None).unwrap());
 }
