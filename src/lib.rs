@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: MIT
 
-use rand::{thread_rng, Rng};
 use core::fmt;
 use core::str::FromStr;
+use rand::{thread_rng, Rng};
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use uuid::Uuid;
 
