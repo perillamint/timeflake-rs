@@ -1,6 +1,6 @@
 [package]
 name = "timeflake-rs"
-version = "0.2.2"
+version = "0.2.3"
 edition = "2021"
 license = "MIT"
 description = "Timeflake is a 128-bit, roughly-ordered, URL-safe UUID. Inspired by Twitter's Snowflake, Instagram's ID and Firebase's PushID."
@@ -10,6 +10,6 @@ keywords = ["timeflake"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-uuid = "0.8.2"
-rand = "0.8.5"
-custom_error = "1.9.2"
+uuid = "1.1"
+rand = "0.8"
+custom_error = "1.9"
