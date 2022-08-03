@@ -47,6 +47,24 @@ impl Timeflake {
         Self::from_values(time, None)
     }
 
+    #[cfg(all(
+        feature = "std",
+        not(target_arch = "wasm32"),
+        not(target_arch = "asmjs")
+    ))]
+    pub fn from_values(
+        timestamp: Duration,
+        random_val: Option<u128>,
+    ) -> Result<Timeflake, TimeflakeError> {
+        let random = match random_val {
+            Some(x) => x,
+            None => thread_rng().gen::<u128>(),
+        };
+
+        Ok(Self { timestamp, random })
+    }
+
+    #[cfg(any(not(feature = "std"), target_arch = "wasm32", target_arch = "asmjs"))]
     pub fn from_values(
         timestamp: Duration,
         random_val: Option<u128>,
