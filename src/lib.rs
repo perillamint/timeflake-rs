@@ -8,7 +8,7 @@ use rand::{thread_rng, Rng};
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use uuid::Uuid;
 
-mod error;
+pub mod error;
 
 use error::TimeflakeError;
 
