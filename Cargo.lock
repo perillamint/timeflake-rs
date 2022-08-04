@@ -69,7 +69,7 @@ dependencies = [
 
 [[package]]
 name = "timeflake-rs"
-version = "0.2.3"
+version = "0.2.4"
 dependencies = [
  "custom_error",
  "rand",
