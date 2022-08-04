@@ -87,8 +87,8 @@ impl Timeflake {
 
     pub fn as_u128(&self) -> u128 {
         let timeflake = self.random & 0x000000000000FFFFFFFFFFFFFFFFFFFF;
-        let timestamp_part = self.timestamp.as_millis() as u64;
-        timeflake | (timestamp_part as u128) << 80
+        let timestamp_part = self.timestamp.as_millis();
+        timeflake | timestamp_part << 80
     }
 
     pub fn get_uuid(&self) -> Uuid {
