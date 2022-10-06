@@ -1,6 +1,6 @@
 [package]
 name = "timeflake-rs"
-version = "0.2.4"
+version = "0.3.0"
 edition = "2021"
 license = "MIT"
 description = "Timeflake is a 128-bit, roughly-ordered, URL-safe UUID. Inspired by Twitter's Snowflake, Instagram's ID and Firebase's PushID."

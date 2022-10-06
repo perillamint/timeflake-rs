@@ -91,14 +91,26 @@ impl Timeflake {
         timeflake | timestamp_part << 80
     }
 
-    pub fn get_uuid(&self) -> Uuid {
+    pub fn as_uuid(&self) -> Uuid {
         Uuid::from_u128(self.as_u128())
+    }
+}
+
+impl From<Timeflake> for u128 {
+    fn from(timeflake: Timeflake) -> Self {
+        timeflake.as_u128()
+    }
+}
+
+impl From<Timeflake> for Uuid {
+    fn from(timeflake: Timeflake) -> Self {
+        timeflake.as_uuid()
     }
 }
 
 impl fmt::Display for Timeflake {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self.get_uuid())
+        write!(f, "{}", self.as_uuid())
     }
 }
 
